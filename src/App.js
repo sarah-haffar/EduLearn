@@ -4,7 +4,8 @@ import Login from "./pages/login";
 import Register from "./pages/register";
 import Home from "./pages/home";
 import Footer from "./pages/footer";
-import './App.css';
+import TeacherDashboard from "./pages/TeacherDashboard";
+import "./App.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -16,12 +17,12 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
         </Routes>
         <Footer />
       </div>
     </Router>
   );
-  
 }
 
 export default App;
