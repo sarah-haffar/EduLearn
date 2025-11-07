@@ -2,23 +2,23 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 
 // 🌸 Pages générales
-import Home from "./pages/home";
-import Login from "./pages/login";
-import Register from "./pages/register";
-import Footer from "./pages/footer";
+import Home from "./pages/home/home";
+import Login from "./pages/login/login";
+import Register from "./pages/register/register";
+import Footer from "./pages/footer/footer";
 
 // 👩‍🏫 Tableau de bord enseignant
-import TeacherDashboard from "./pages/TeacherDashboard";
+import TeacherDashboard from "./pages/enseignant/TeacherDashboard";
 
 // 🎓 Tableau de bord étudiant
-import DashboardEtudiant from "./pages/DashboardEtudiant";
-import MesCours from "./pages/MesCours";
-import Quiz from "./pages/Quiz";
-import Progression from "./pages/Progression";
-import Profil from "./pages/Profil";
+import DashboardEtudiant from "./pages/etudiant/DashboardEtudiant";
+import MesCours from "./pages/etudiant/MesCours";
+import Quiz from "./pages/etudiant/Quiz";
+import Progression from "./pages/etudiant/Progression";
+import Profil from "./pages/etudiant/Profil";
 
 // 🌸 Styles - ORDRE CRUCIAL !
-import "./pages/theme_etudiant.css"; 
+import "./pages/etudiant/theme_etudiant.css"; 
 import "./App.css"; // Styles publics seulement
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";

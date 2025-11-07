@@ -1,27 +1,22 @@
 import React, { useState } from "react";
-import logo from "../assets/logo_edu.png";
-import illustration from "../assets/grad.jpg";
+import logo from "../../assets/logo_edu.png";
+import illustration from "../../assets/grad.jpg";
 import { Link } from "react-router-dom";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import Tooltip from "@mui/material/Tooltip";
-import '../pages/register.css';
-
+import './login.css';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-function Register() {
-  const [username, setUsername] = useState("");
+function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [role, setRole] = useState("etudiant");
 
   // Toast
   const [toastOpen, setToastOpen] = useState(false);
@@ -39,24 +34,16 @@ function Register() {
     setToastOpen(false);
   };
 
-  // Erreurs inline
+  // Erreurs
   const [errors, setErrors] = useState({
-    username: "",
     email: "",
     password: "",
-    confirmPassword: "",
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const newErrors = { username: "", email: "", password: "", confirmPassword: "" };
+    const newErrors = { email: "", password: "" };
     let hasError = false;
-
-    if (username.trim().length < 3) {
-      newErrors.username = "Au moins 3 lettres";
-      hasError = true;
-    }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
@@ -69,24 +56,19 @@ function Register() {
       hasError = true;
     }
 
-    if (confirmPassword !== password) {
-      newErrors.confirmPassword = "Les mots de passe ne correspondent pas";
-      hasError = true;
-    }
-
     setErrors(newErrors);
 
-    if (hasError) return; // stoppe si erreurs
+    if (hasError) {
+      handleToast("Veuillez corriger les erreurs", "error");
+      return;
+    }
 
-    console.log("Register with:", { username, email, password, role });
-    handleToast("Inscription réussie !", "success");
+    console.log("Login with:", { email, password });
+    handleToast("Connexion réussie !", "success");
 
     // reset
-    setUsername("");
     setEmail("");
     setPassword("");
-    setConfirmPassword("");
-    setRole("etudiant");
   };
 
   return (
@@ -97,18 +79,8 @@ function Register() {
         </div>
         <div className="auth-form">
           <img src={logo} alt="Logo" className="logo" />
-          <h2>Inscription</h2>
+          <h2>Connexion</h2>
           <form onSubmit={handleSubmit}>
-            <Tooltip title={errors.username} open={!!errors.username} placement="right" arrow>
-              <input
-                type="text"
-                placeholder="Nom d'utilisateur"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-              />
-            </Tooltip>
-
             <Tooltip title={errors.email} open={!!errors.email} placement="right" arrow>
               <input
                 type="email"
@@ -137,51 +109,10 @@ function Register() {
               </div>
             </Tooltip>
 
-            <Tooltip
-              title={errors.confirmPassword}
-              open={!!errors.confirmPassword}
-              placement="right"
-              arrow
-            >
-              <div className="password-wrapper">
-                <input
-                  type={showConfirmPassword ? "text" : "password"}
-                  placeholder="Confirmer le mot de passe"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  required
-                />
-                <span
-                  className="eye-icon"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                >
-                  {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
-                </span>
-              </div>
-            </Tooltip>
-
-            <div className="toggle-switch">
-                <span>Rôle : </span>
-                <label className="switch">
-                    <input
-                    type="checkbox"
-                    checked={role === "enseignant"}
-                    onChange={() =>
-                        setRole(role === "etudiant" ? "enseignant" : "etudiant")
-                    }
-                    />
-                    <span className="slider round"></span>
-                </label>
-                <span style={{ marginLeft: "0.5rem" }}>
-                    {role === "etudiant" ? "Étudiant" : "Enseignant"}
-                </span>
-                </div>
-
-
-            <button type="submit">S'inscrire</button>
+            <button type="submit">Se connecter</button>
           </form>
           <p style={{ marginTop: "0.5rem", fontSize: "0.9rem" }}>
-            Déjà un compte ? <Link to="/login">Se connecter</Link>
+            Pas de compte ? <Link to="/register">Créer un compte</Link>
           </p>
         </div>
       </div>
@@ -200,4 +131,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Login;
